@@ -26,10 +26,10 @@ public class Main {
         
         String line = reader.readNextLine();
         if (line == null)
-            System.out.println("Your file does not contain any usefull content");
+            System.out.println("Your file does not contain any useful content");
         line = reader.readNextLine();
         if (line == null)
-            System.out.println("Your file does not contain any usefull content");
+            System.out.println("Your file does not contain any useful content");
         
         // Lecture fichier d'entree afin de placer les revues dans l'arbre
         while (true) {
@@ -62,8 +62,7 @@ public class Main {
             Magazine magazine = (Magazine) tree.get(((String) title).toLowerCase());
             if (magazine == null) {
                 System.out.println("Your magazine hasn't been found");
-            }
-            else {
+            } else {
                 System.out.println(magazine.toString());
             }
             title = in.nextLine();

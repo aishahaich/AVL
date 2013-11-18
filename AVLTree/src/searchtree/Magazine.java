@@ -125,7 +125,7 @@ public class Magazine {
 	public String toString() {
 		
 		String retour = new String();
-		retour.concat("Title: ").concat(this.getTitle()).concat("\n");
+		retour = retour.concat("Title: ").concat(this.getTitle()).concat("\n");
 		if (Rank != null)
 			retour = retour.concat("Rank: ").concat(this.getRank()).concat("\n");
 		if (FoR1 != null)

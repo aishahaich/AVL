@@ -123,25 +123,23 @@ public class Magazine {
 	 * @post retourne le contenu de tous les attributs du magazine
 	 */
 	public String toString() {
-		if (Rank == null && FoR1 == null && FoR1Name == null && FoR2 == null &&
-			FoR2Name == null && FoR3 == null && FoR3Name == null)
-			return "No additional data available for this entry";
 		
 		String retour = new String();
+		retour.concat("Title: ").concat(this.getTitle()).concat("\n");
 		if (Rank != null)
-			retour = retour.concat("Rank: ").concat(getRank()).concat("\n");
+			retour = retour.concat("Rank: ").concat(this.getRank()).concat("\n");
 		if (FoR1 != null)
-			retour = retour.concat("FoR1: ").concat(getFoR1()).concat("\n");
+			retour = retour.concat("FoR1: ").concat(this.getFoR1()).concat("\n");
 		if (FoR1Name != null)
-			retour = retour.concat("FoR1Name: ").concat(getFoR1Name()).concat("\n");
+			retour = retour.concat("FoR1Name: ").concat(this.getFoR1Name()).concat("\n");
 		if (FoR2 != null)
-			retour = retour.concat("FoR2: ").concat(getFoR2()).concat("\n");
+			retour = retour.concat("FoR2: ").concat(this.getFoR2()).concat("\n");
 		if (FoR2Name != null)
-			retour = retour.concat("FoR2Name: ").concat(getFoR2Name()).concat("\n");
+			retour = retour.concat("FoR2Name: ").concat(this.getFoR2Name()).concat("\n");
 		if (FoR3 != null)
-			retour = retour.concat("FoR3: ").concat(getFoR1()).concat("\n");
+			retour = retour.concat("FoR3: ").concat(this.getFoR1()).concat("\n");
 		if (FoR3Name != null)
-			retour = retour.concat("FoR3Name: ").concat(getFoR1Name()).concat("\n");
+			retour = retour.concat("FoR3Name: ").concat(this.getFoR1Name()).concat("\n");
 		
 		return retour;
 	}

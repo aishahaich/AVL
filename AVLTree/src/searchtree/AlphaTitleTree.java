@@ -1,10 +1,12 @@
 package searchtree;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dsaj.AVLTreeMap;
 import dsaj.Entry;
 import dsaj.InvalidKeyException;
+import dsaj.LinkedBinaryTree;
 import dsaj.Position;
 
 /**
@@ -100,7 +102,7 @@ public class AlphaTitleTree {
 	 * @post retourne la liste des magazines dans l'ordre alphabetique
 	 * @return un iterateur contenant les magazines de l'arbre dans l'ordre alphabetique
 	 */
-	public Iterable<Magazine> alphabetOrder() {
+	public Iterable<Magazine> getAlphabetOrder() {
 		ArrayList<Magazine> mag = new ArrayList<Magazine>();
 		alphaOrder(this.tree.root(), mag);
 		return mag;
@@ -149,5 +151,52 @@ public class AlphaTitleTree {
 		
 		if(tree.hasRight(position)) // appel recursif droit en dernier pour ordre infix (= alphabetique)
 			refineByDomain(domainName, domainValue, tree.right(position), mag);
+	}
+	
+	/**
+	 * Renvoie une liste de touts les magazines contenus dans l'arbre tree, tries par un certain domaine. 
+	 * Par exemple, sortByDomain("rank") renvoie une liste avec d'abord tous les magazines de rang A suivit 
+	 * des magazines de rang B, ...
+	 * Complexite : O(n) * (O(put)+O(get)) + O(value*addAll).
+	 * Put et get sont en O(log(n)) et value*addAll revient a ajouter tous les magazines dans mag, donc O(n).
+	 * Ce qui nous donne O(n*log(n)) + O(n) = O(n*(log(n)+1)) avec n etant le nombre de magazines dans tree.
+	 * @pre domainName vaut "rank", "title", "for1", "for1name", "for2", "for2name", "for3" ou "for3name"
+	 * @post renvoie une liste des magazines ordonne selon un domaine donne (par domainName)
+	 */
+	public Iterable<Magazine> sortByDomain(String domainName) {
+		ArrayList<Magazine> mag = new ArrayList<Magazine>();
+		
+		// La key est la valeur du domaine et la valeur est la liste des magazines qui ont le meme domaine
+		AVLTreeMap<String, ArrayList<Magazine>> avlTree = new AVLTreeMap<String, ArrayList<Magazine>>(); 
+			
+		// Parcours tous les magazines
+		for(Magazine m : values()) { 
+			switch(domainName.toLowerCase()) { // Ajoute les magazines dans la bonne liste
+			case "rank" : 		addMagByDomain(avlTree, m.getRank(), m); 	break; 
+			case "title" : 		addMagByDomain(avlTree, m.getTitle(), m);	break;
+			case "for1" : 		addMagByDomain(avlTree, m.getFoR1(), m); 	break;
+			case "for1name" : 	addMagByDomain(avlTree, m.getFoR1Name(), m);break;
+			case "for2" : 		addMagByDomain(avlTree, m.getFoR2(), m); 	break;
+			case "for2name" : 	addMagByDomain(avlTree, m.getFoR2Name(), m);break;
+			case "for3" : 		addMagByDomain(avlTree, m.getFoR3(), m); 	break;
+			case "for3name" : 	addMagByDomain(avlTree, m.getFoR3Name(), m);break;
+			}
+		}
+		
+		// Met toutes les listes de l'arbre en une seule, triee par un certain domaine
+		for(ArrayList<Magazine> list : avlTree.values())  
+			mag.addAll(list);
+		
+		return mag;
+	}
+	/**
+	 * Ajoute un magazine m dans l'arbre tree, avec comme cle le nom du domaine et 
+	 * comme valeur la liste des magizine ayant ce domaine
+	 */
+	private void addMagByDomain(AVLTreeMap<String, ArrayList<Magazine>> tree, String domainVal, Magazine m) {
+		ArrayList<Magazine> list = tree.get(domainVal);
+		if(list==null) 
+			tree.put(domainVal, new ArrayList<Magazine>());
+		list.add(m);
 	}
 }

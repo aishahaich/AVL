@@ -68,6 +68,14 @@ public class Main {
             title = in.nextLine();
         }
         
+        /*
+        
+        Francois, lorsque Guillaume a mis ses fonctions de recherche, tu devras adapter le code-ci dessous par rapport a son code.
+        Il ne te reste donc plus grand chose a faire...
+        Le reste fonctionne.
+        
+        */
+        
         // Fonction permettant de lister toutes les revues selon le domaine FoR2 Name par ordre alphabetique
         
         /*
